@@ -105,6 +105,7 @@
             this.txtSo2.Size = new System.Drawing.Size(100, 26);
             this.txtSo2.TabIndex = 13;
             this.txtSo2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtSo2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtSo2_MouseClick);
             // 
             // label2
             // 
@@ -124,6 +125,7 @@
             this.txtSo1.Size = new System.Drawing.Size(100, 26);
             this.txtSo1.TabIndex = 11;
             this.txtSo1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtSo1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtSo1_MouseClick);
             // 
             // label1
             // 
