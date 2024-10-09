@@ -15,6 +15,8 @@ namespace Buoi07_TinhToan3
         public Form1()
         {
             InitializeComponent();
+            txtSo1.Enter += txtSo1_Enter;
+            txtSo2.Enter += txtSo2_Enter;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -45,6 +47,13 @@ namespace Buoi07_TinhToan3
             else if (radChia.Checked && so2 != 0) kq = so1 / so2;
             //Hiển thị kết quả lên trên ô kết quả
             txtKq.Text = kq.ToString();
+        }
+
+        private void txtSo1_Enter(object sender, EventArgs e) {
+          txtSo1.SelectAll();
+        }
+        private void txtSo2_Enter(object sender, EventArgs e) {
+          txtSo2.SelectAll();
         }
     }
 }
