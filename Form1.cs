@@ -56,6 +56,16 @@ namespace Buoi07_TinhToan3
             txtKq.Text = kq.ToString();
         }
 
+
+        private void txtSo2_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtSo2.SelectAll();
+        }
+        private void txtSo1_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtSo1.SelectAll();
+        }
+
         private string CongSoLon(string soThuNhat, string soThuHai)
         {
             bool laSoAm1 = soThuNhat.StartsWith("-");
@@ -155,6 +165,6 @@ namespace Buoi07_TinhToan3
             if (soThuNhat.Length < soThuHai.Length) return false;
             return string.Compare(soThuNhat, soThuHai) > 0;
         }
-        
+ 
     }
 }
