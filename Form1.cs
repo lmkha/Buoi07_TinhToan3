@@ -16,8 +16,6 @@ namespace Buoi07_TinhToan3
         public Form1()
         {
             InitializeComponent();
-            txtSo1.Enter += txtSo1_Enter;
-            txtSo2.Enter += txtSo2_Enter;
         }
 
 
@@ -158,11 +156,5 @@ namespace Buoi07_TinhToan3
             return string.Compare(soThuNhat, soThuHai) > 0;
         }
         
-        private void txtSo1_Enter(object sender, EventArgs e) {
-          txtSo1.SelectAll();
-        }
-        private void txtSo2_Enter(object sender, EventArgs e) {
-          txtSo2.SelectAll();
-        }
     }
 }
