@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Numerics;
 
 namespace Buoi07_TinhToan3
 {
@@ -34,17 +35,120 @@ namespace Buoi07_TinhToan3
 
         private void btnTinh_Click(object sender, EventArgs e)
         {
-            //lấy giá trị của 2 ô số
-            double so1, so2, kq = 0;
-            so1 = double.Parse(txtSo1.Text);
-            so2 = double.Parse(txtSo2.Text);
-            //Thực hiện phép tính dựa vào phép toán được chọn
-            if (radCong.Checked) kq = so1 + so2;
-            else if (radTru.Checked) kq = so1 - so2;
-            else if (radNhan.Checked) kq = so1 * so2;
-            else if (radChia.Checked && so2 != 0) kq = so1 / so2;
-            //Hiển thị kết quả lên trên ô kết quả
+            string so1 = txtSo1.Text;
+            string so2 = txtSo2.Text;
+            string kq = "0";
+            if (radCong.Checked)
+                kq = CongSoLon(so1, so2);
+            else if (radTru.Checked)
+                kq = TruSoLon(so1, so2);
+            //else if (radNhan.Checked) 
+            //    kq = so1 * so2;
+            //else if (radChia.Checked && so2 != 0) 
+            //    kq = so1 / so2;
             txtKq.Text = kq.ToString();
         }
+
+        private string CongSoLon(string soThuNhat, string soThuHai)
+        {
+            bool laSoAm1 = soThuNhat.StartsWith("-");
+            bool laSoAm2 = soThuHai.StartsWith("-");
+
+            if (laSoAm1 && laSoAm2)
+            {
+                return "-" + CongSoLon(soThuNhat.Substring(1), soThuHai.Substring(1));
+            }
+            else if (laSoAm1)
+            {
+                return TruSoLon(soThuHai, soThuNhat.Substring(1));
+            }
+            else if (laSoAm2)
+            {
+                return TruSoLon(soThuNhat, soThuHai.Substring(1));
+            }
+
+            while (soThuNhat.Length < soThuHai.Length)
+                soThuNhat = "0" + soThuNhat;
+            while (soThuHai.Length < soThuNhat.Length)
+                soThuHai = "0" + soThuHai;
+
+            string ketQua = "";
+            int nho = 0;
+
+            for (int i = soThuNhat.Length - 1; i >= 0; i--)
+            {
+                int chuSo1 = soThuNhat[i] - '0';
+                int chuSo2 = soThuHai[i] - '0';
+                int tong = chuSo1 + chuSo2 + nho;
+
+                ketQua = (tong % 10).ToString() + ketQua;
+                nho = tong / 10;
+            }
+
+            if (nho > 0)
+                ketQua = nho.ToString() + ketQua;
+
+            return ketQua.TrimStart('0');
+        }
+
+
+        private string TruSoLon(string soThuNhat, string soThuHai)
+        {
+            bool laSoAm = false;
+
+            if (SoSanhLonHon(soThuHai, soThuNhat))
+            {
+                string temp = soThuNhat;
+                soThuNhat = soThuHai;
+                soThuHai = temp;
+                laSoAm = true;
+            }
+
+            while (soThuNhat.Length < soThuHai.Length)
+                soThuNhat = "0" + soThuNhat;
+            while (soThuHai.Length < soThuNhat.Length)
+                soThuHai = "0" + soThuHai;
+
+            string ketQua = "";
+            int muon = 0;
+
+            for (int i = soThuNhat.Length - 1; i >= 0; i--)
+            {
+                int chuSo1 = soThuNhat[i] - '0';
+                int chuSo2 = soThuHai[i] - '0';
+
+                int hieu = chuSo1 - chuSo2 - muon;
+                if (hieu < 0)
+                {
+                    hieu += 10;
+                    muon = 1;
+                }
+                else
+                {
+                    muon = 0;
+                }
+
+                ketQua = hieu.ToString() + ketQua;
+            }
+
+            ketQua = ketQua.TrimStart('0');
+
+            if (ketQua == "")
+                ketQua = "0";
+
+            if (laSoAm)
+                ketQua = "-" + ketQua;
+
+            return ketQua;
+        }
+
+        private bool SoSanhLonHon(string soThuNhat, string soThuHai)
+        {
+            if (soThuNhat.Length > soThuHai.Length) return true;
+            if (soThuNhat.Length < soThuHai.Length) return false;
+            return string.Compare(soThuNhat, soThuHai) > 0;
+        }
+
+
     }
 }
