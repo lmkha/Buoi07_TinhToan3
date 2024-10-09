@@ -23,6 +23,8 @@ namespace Buoi07_TinhToan3
         {
             txtSo1.Text = txtSo2.Text = "0";
             radCong.Checked = true;             //đầu tiên chọn phép cộng
+            txtSo1.Validating += txtSo1_Validating; // Đăng ký sự kiện Validating cho txtSo1
+            txtSo2.Validating += txtSo2_Validating; // Đăng ký sự kiện Validating cho txtSo2
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
@@ -165,6 +167,49 @@ namespace Buoi07_TinhToan3
             if (soThuNhat.Length < soThuHai.Length) return false;
             return string.Compare(soThuNhat, soThuHai) > 0;
         }
- 
+
+        private void txtSo1_Validating(object sender, CancelEventArgs e)
+        {
+            // Kiểm tra nếu txtSo1 trống
+            if (string.IsNullOrWhiteSpace(txtSo1.Text))
+            {
+                MessageBox.Show("Vui lòng không để trống số thứ nhất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSo1.Focus();
+                e.Cancel = true; // Giữ focus ở txtSo1 để yêu cầu sửa
+                return;
+            }
+
+            // Kiểm tra nếu txtSo1 chứa ký tự không phải là số
+            if (!long.TryParse(txtSo1.Text, out _)) // TryParse trả về false nếu không phải số
+            {
+                MessageBox.Show("Vui lòng chỉ nhập ký tự là số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSo1.Focus();
+                e.Cancel = true; // Giữ focus ở txtSo1 để yêu cầu sửa
+                return;
+            }
+        }
+
+        private void txtSo2_Validating(object sender, CancelEventArgs e)
+        {
+            // Kiểm tra nếu txtSo2 trống
+            if (string.IsNullOrWhiteSpace(txtSo2.Text))
+            {
+                MessageBox.Show("Vui lòng không để trống số thứ hai.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSo2.Focus();
+                e.Cancel = true; // Giữ focus ở txtSo2 để yêu cầu sửa
+                return;
+            }
+
+            // Kiểm tra nếu txtSo2 chứa ký tự không phải là số
+            if (!long.TryParse(txtSo2.Text, out _)) // TryParse trả về false nếu không phải số
+            {
+                MessageBox.Show("Vui lòng chỉ nhập ký tự là số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSo2.Focus();
+                e.Cancel = true; // Giữ focus ở txtSo2 để yêu cầu sửa
+                return;
+            }
+        }
+
+
     }
 }
