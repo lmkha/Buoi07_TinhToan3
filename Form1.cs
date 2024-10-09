@@ -46,6 +46,12 @@ namespace Buoi07_TinhToan3
             //    kq = so1 * so2;
             //else if (radChia.Checked && so2 != 0) 
             //    kq = so1 / so2;
+            if (txtSo2.Text == "0" && radChia.Checked)
+            {
+                MessageBox.Show("Không thể chia cho số 0", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtSo2.Focus();
+                return;
+            }
             txtKq.Text = kq.ToString();
         }
 
